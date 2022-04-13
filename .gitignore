@@ -1,3 +1,6 @@
+.env
+.envrc
+
 ### https://raw.github.com/github/gitignore/8ea9c647018521ab2a9c78d630a2fb6579e16d37/Go.gitignore
 
 # If you prefer the allow list template instead of the deny list, see community template:
@@ -31,7 +34,8 @@ go.work
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
