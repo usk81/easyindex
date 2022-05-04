@@ -78,6 +78,26 @@ type (
 		// logger is logger instance
 		logger *zap.Logger
 	}
+
+	// Publisher ...
+	Publisher interface {
+		Publish(requests []PublishRequest, quota ...int) (
+			// Total number of requests
+			total int,
+			// Count of API request
+			count int,
+			// Responses from Google Indexing API
+			responses []*indexing.PublishUrlNotificationResponse,
+			// skiped API Requests
+			skips []SkipedPublishRequest,
+			err error,
+		)
+	}
+
+	// Manager...
+	Manager interface {
+		Publisher
+	}
 )
 
 var (
@@ -86,7 +106,7 @@ var (
 )
 
 // New creates new coordinator instance
-func New(conf Config) (s *Serivce, err error) {
+func New(conf Config) (s Manager, err error) {
 	ctx := conf.Context
 	if ctx == nil {
 		ctx = context.Background()
@@ -109,7 +129,7 @@ func New(conf Config) (s *Serivce, err error) {
 }
 
 // New creates new coordinator instance with API client
-func NewWithClient(conf Config, c easyindex.APIClient) *Serivce {
+func NewWithClient(conf Config, c easyindex.APIClient) Manager {
 	crawler := conf.Crawler
 	if crawler == nil {
 		crawler = http.DefaultClient
