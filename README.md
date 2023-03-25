@@ -88,10 +88,10 @@ ref. https://github.com/usk81/easyindex-cli
     - [x] basic (uber/zap)
     - [ ] customize (other logger)
 - CI/CD
-  - [ ] unit tests
-  - [ ] linter
-  - [ ] auto review
-  - [ ] release drafter
+  - [x] unit tests
+  - [x] linter
+  - [x] auto review
+  - [x] release drafter
 - others
   - [ ] flexible error handling
   - [ ] unit tests
