@@ -58,7 +58,7 @@ type (
 		Logger *zap.Logger
 	}
 
-	Serivce struct {
+	Service struct {
 		// client sends Google indexing API request
 		client easyindex.APIClient
 
@@ -134,7 +134,7 @@ func NewWithClient(conf Config, c easyindex.APIClient) Manager {
 	if crawler == nil {
 		crawler = http.DefaultClient
 	}
-	return &Serivce{
+	return &Service{
 		client:         c,
 		ignorePreCheck: conf.IgnorePreCheck,
 		skip:           conf.Skip,
@@ -144,7 +144,7 @@ func NewWithClient(conf Config, c easyindex.APIClient) Manager {
 }
 
 // Publish sends Google indexing API requests
-func (s *Serivce) Publish(requests []PublishRequest, quota ...int) (
+func (s *Service) Publish(requests []PublishRequest, quota ...int) (
 	// Total number of requests
 	total int,
 	// Count of API request
@@ -193,7 +193,10 @@ func (s *Serivce) Publish(requests []PublishRequest, quota ...int) (
 		count++
 		s.debug("publish", zap.String("url", r.URL), zap.String("type", string(r.NotificationType)))
 		var resp *indexing.PublishUrlNotificationResponse
-		if resp, err = s.client.Publish(r.URL, r.NotificationType); err != nil {
+		if resp, err = s.request(r.URL, r.NotificationType, false); err != nil {
+			if resp != nil {
+				return
+			}
 			s.error("publish", zap.String("url", r.URL), zap.String("type", string(r.NotificationType)), zap.Error(err))
 			return
 		}
@@ -202,19 +205,33 @@ func (s *Serivce) Publish(requests []PublishRequest, quota ...int) (
 	return
 }
 
-func (s *Serivce) debug(msg string, fields ...zapcore.Field) {
+func (s *Service) request(u string, nt easyindex.NotificationType, isRetried bool) (resp *indexing.PublishUrlNotificationResponse, err error) {
+	if resp, err = s.client.Publish(u, nt); err != nil {
+		s.error("publish", zap.String("url", u), zap.String("type", string(nt)), zap.Error(err))
+		if !isRetried && resp != nil && (resp.HTTPStatusCode == http.StatusBadGateway || resp.HTTPStatusCode == http.StatusServiceUnavailable) {
+			r, e := s.request(u, nt, true)
+			if e != nil || r.HTTPStatusCode >= 400 {
+				s.error("publish:retry", zap.String("url", u), zap.String("type", string(nt)), zap.Error(err))
+				return resp, err
+			}
+		}
+	}
+	return
+}
+
+func (s *Service) debug(msg string, fields ...zapcore.Field) {
 	if s.logger != nil {
 		s.logger.Debug(msg, fields...)
 	}
 }
 
-func (s *Serivce) error(msg string, fields ...zapcore.Field) {
+func (s *Service) error(msg string, fields ...zapcore.Field) {
 	if s.logger != nil {
 		s.logger.Error(msg, fields...)
 	}
 }
 
-func (s *Serivce) alertIfError(rs []PublishRequest) (err error) {
+func (s *Service) alertIfError(rs []PublishRequest) (err error) {
 	for _, r := range rs {
 		if r.NotificationType == easyindex.NotificationTypeUpdated {
 			var resp *http.Response
@@ -233,7 +250,7 @@ func (s *Serivce) alertIfError(rs []PublishRequest) (err error) {
 	return nil
 }
 
-func (s *Serivce) appendSkips(rs []PublishRequest) (requests []PublishRequest, skips []SkipedPublishRequest) {
+func (s *Service) appendSkips(rs []PublishRequest) (requests []PublishRequest, skips []SkipedPublishRequest) {
 	skips = []SkipedPublishRequest{}
 	requests = []PublishRequest{}
 
