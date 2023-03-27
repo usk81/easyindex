@@ -17,9 +17,14 @@ ref. [Google Search Central](https://developers.google.com/search/apis/indexing-
 
 ## required
 
-- Google service account
-- credential json file for Google Indexing API
-- Go +1.17
+- Google Indexing API
+  - Google service account
+  - credential json file for Google Indexing API
+- IndexNow API
+  - generate key
+    - ref. https://www.bing.com/indexnow
+  - hosting a text key file within your host
+- Go +1.18
 
 ### install
 
@@ -28,49 +33,8 @@ go get github.com/usk81/easyindex
 ```
 ### example
 
-```go
-import (
-    "fmt"
-
-    "github.com/usk81/easyindex"
-    "github.com/usk81/easyindex/coordinator"
-    "github.com/usk81/easyindex/logger"
-)
-
-func main() {
-    cf := "./credential.json"
-    l, err := logger.New("debug")
-    if err != nil {
-        panic(err)
-    }
-    s, err := coordinator.New(coordinator.Config{
-        CredentialsFile: &cf,
-        Logger:          l,
-        Skip:            true,
-    })
-    if err != nil {
-        panic(err)
-    }
-    rs := []coordinator.PublishRequest{
-        {
-            URL:              "http://example.com/foo",
-            NotificationType: easyindex.NotificationTypeUpdated,
-        },
-        {
-            URL:              "http://example.com/bar",
-            NotificationType: easyindex.NotificationTypeDeleted,
-        },
-    }
-    total, count, resp, skips, err := s.Publish(rs, limit)
-    if err != nil {
-        panic(err)
-    }
-    fmt.Printf("total: %d\n", total)
-    fmt.Printf("count: %d\n", count)
-    fmt.Printf("response: %#v\n", resp)
-    fmt.Printf("skipRequests: %#v\n", skips)
-}
-```
+- [Google Indexing API](google/README.md)
+- [IndexNow API](indexnow/README.md)
 
 ### use as CLI
 
@@ -79,10 +43,8 @@ ref. https://github.com/usk81/easyindex-cli
 ## milestones
 
 - API
-  - [ ] getMetadata
-  - publish
-    - [x] basic
-    - csv import 
+  - [x] Google Indexing API
+  - [x] IndexNow API
 - plugin
   - logger
     - [x] basic (uber/zap)
@@ -92,6 +54,3 @@ ref. https://github.com/usk81/easyindex-cli
   - [x] linter
   - [x] auto review
   - [x] release drafter
-- others
-  - [ ] flexible error handling
-  - [ ] unit tests

@@ -1,17 +1,19 @@
 module github.com/usk81/easyindex
 
-go 1.17
+go 1.18
 
 require (
 	go.uber.org/zap v1.21.0
 	golang.org/x/oauth2 v0.0.0-20220309155454-6242fa91716a
 	google.golang.org/api v0.71.0
+	github.com/usk81/toolkit/slice v0.0.0-20230106100150-91eaaa955990
 )
 
 require (
 	cloud.google.com/go/compute v1.5.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/googleapis/gax-go/v2 v2.1.1 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect

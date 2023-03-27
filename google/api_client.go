@@ -1,4 +1,4 @@
-package easyindex
+package google
 
 import (
 	"context"

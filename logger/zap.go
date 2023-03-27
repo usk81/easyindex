@@ -18,7 +18,6 @@ var (
 // New ...
 func New(lv string) (l *zap.Logger, err error) {
 	config := zap.NewProductionConfig()
-	config.Encoding = "json"
 	config.Level = zap.NewAtomicLevelAt(logLevel(lv))
 	config.OutputPaths = []string{"stdout"}
 	config.EncoderConfig.MessageKey = "message"
