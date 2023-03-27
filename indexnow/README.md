@@ -7,7 +7,7 @@
 
 ## Required
 
-- Google Indexing API
+- IndexNow API
   - generate key
     - ref. https://www.bing.com/indexnow
   - hosting a text key file within your host
