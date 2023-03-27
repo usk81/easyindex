@@ -1,4 +1,4 @@
-package easyindex
+package google
 
 type NotificationType string
 
