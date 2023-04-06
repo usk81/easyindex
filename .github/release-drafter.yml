@@ -3,10 +3,10 @@ tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: 'features'
     labels:
-      - 'features'
+      - 'enhancement'
   - title: 'bugfix'
     labels:
-      - 'bugfix'
+      - 'bug'
 change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 version-resolver:
   major:
@@ -23,3 +23,5 @@ exclude-labels:
   - 'skip-changelog'
 template: |
   ## Changes
+
+  $CHANGES
