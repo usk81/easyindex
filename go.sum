@@ -81,8 +81,9 @@ github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
-github.com/usk81/toolkit/slice v0.0.0-20230106100150-91eaaa955990 h1:MM7VxL0cCvd4OaRoeSvxorcQY52aeRMVvGsCIFWFFT8=
-github.com/usk81/toolkit/slice v0.0.0-20230106100150-91eaaa955990/go.mod h1:QsvrRdjGgRaT/xh4iVe+ILZU148K3L/zlg7GmYA1ANA=
+github.com/usk81/toolkit/slice v0.0.1 h1:yKFuVP9Kz7QsxvOJsiZ2ulLAvVnZsiWSe+zTvRS0xMg=
+github.com/usk81/toolkit/slice v0.0.1/go.mod h1:ThWEjlHtuH+03gnU+JAKDPEoG9nbY6L3F9+pBZR5/Xo=
+github.com/usk81/toolkit/testkit v0.0.1 h1:ToGYpxCtBHBAXomGzHKQRkVgHoYlN2bp3baok3z0IJs=
 go.opencensus.io v0.24.0 h1:y73uSU6J157QMP2kn2r30vwW1A2W2WFwSCGnAVxeaD0=
 go.opencensus.io v0.24.0/go.mod h1:vNK8G9p7aAivkbmorf4v+7Hgx+Zs0yY+0fOtgBfjQKo=
 go.opentelemetry.io/proto/otlp v0.7.0/go.mod h1:PqfVotwruBrMGOCsRd/89rSnXhoiJIqeYNgFYFoEGnI=

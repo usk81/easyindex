@@ -3,7 +3,7 @@ module github.com/usk81/easyindex
 go 1.18
 
 require (
-	github.com/usk81/toolkit/slice v0.0.0-20230106100150-91eaaa955990
+	github.com/usk81/toolkit/slice v0.0.1
 	go.uber.org/zap v1.24.0
 	golang.org/x/oauth2 v0.7.0
 	google.golang.org/api v0.117.0
