@@ -6,7 +6,7 @@ require (
 	github.com/usk81/toolkit/slice v0.0.1
 	go.uber.org/zap v1.24.0
 	golang.org/x/oauth2 v0.7.0
-	google.golang.org/api v0.117.0
+	google.golang.org/api v0.118.0
 )
 
 require (
